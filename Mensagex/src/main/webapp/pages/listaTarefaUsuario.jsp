@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Lista de Usuários</title>
+<title>Lista de Tarefas</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -45,7 +45,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-2 text-gray-800 tab">Usuários</h1>
+						<h1 class="h3 mb-2 text-gray-800 tab">Tarefas</h1>
 					</div>
 
 					<!-- DataTales Example -->
@@ -56,25 +56,19 @@
 									<thead>
 										<tr>
 											<th class="align-middle text-center">Id</th>
-											<th class="align-middle text-center">Nome</th>
-											<th class="align-middle text-center">E-mail</th>
-											<th class="align-middle text-center">Tarefas</th>
-											<th class="align-middle text-center">Opções</th>
+											<th class="align-middle text-center">Titulo</th>
+											<th class="align-middle text-center">Usuário</th>
+											<th class="align-middle text-center">Data</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${usuarios}" var="usuario">
+										<c:forEach items="${tarefas}" var="tarefa">
 											<tr>
-												<td><c:out value="${usuario.id}" /></td>
-												<td><c:out value="${usuario.nome}" /></td>
-												<td><c:out value="${usuario.email}" /></td>
-												<td><c:forEach items="${usuario.tarefas}" var="tarefa">
-														<c:out value="${tarefa.titulo}" /> ||</c:forEach></td>
-												<td><button type="button" class="btn btn-primary"
-														onclick="location.href='tarefaController?action=adiciona&id=<c:out value="${usuario.id}"/>'">Adicionar
-														Tarefa</button>
-													<button type="button" class="btn btn-primary"
-														onclick="location.href='usuarioController?action=listaTarefaUsuario&id=<c:out value="${usuario.id}"/>'">Tarefas</button></td>
+												<td><c:out value="${tarefa.id}" /></td>
+												<td><c:out value="${tarefa.titulo}" /></td>
+												<td><c:out value="${tarefa.usuario.nome}" /></td>
+												<td><fmt:formatDate pattern="dd/MM/yyyy"
+														value="${tarefa.dataTarefa}" /></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -86,15 +80,10 @@
 			</div>
 		</div>
 	</div>
-
 	<button type="button" class="btn btn-primary"
 		style="margin-left: 10px;"
-		onclick="location.href='usuarioController?action=adicionar'">Adicionar
-		Usuário</button>
-	<button type="button" class="btn btn-primary"
-		style="margin-left: 10px;"
-		onclick="location.href='tarefaController?action=listaTarefa'">
-		Lista de Tarefas</button>
+		onclick="location.href='usuarioController?action=listaUsuario'">
+		Lista de Usuários</button>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#tabela_id').dataTable();

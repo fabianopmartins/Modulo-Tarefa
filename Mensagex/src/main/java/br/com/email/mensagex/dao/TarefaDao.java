@@ -25,15 +25,20 @@ public class TarefaDao {
 		List<Tarefa> tarefas = new ArrayList<>();	
 		try {			
 			PreparedStatement stmt = this.connection
-					.prepareStatement("select * from tarefa where usuario_id = ?");
+					.prepareStatement("SELECT * FROM tarefa t INNER JOIN usuario u ON t.usuario_id = u.id WHERE u.id = ?");//prepareStatement("select * from tarefa where usuario_id = ?");
+					
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 		
 			while (rs.next()) {			
 				Tarefa tarefa = new Tarefa();
+				UsuarioDao usuarioDao = new UsuarioDao();
+				Usuario usuario = new Usuario();
 				tarefa.setId(rs.getInt("id"));
 				tarefa.setTitulo(rs.getString("titulo"));
 				tarefa.setDataTarefa(rs.getDate("dataTarefa"));
+				usuario.setId(rs.getInt("usuario_id"));				
+				tarefa.setUsuario(usuarioDao.getUsuarioById(usuario.getId()));
 				tarefas.add(tarefa);				
 			}			
 					
